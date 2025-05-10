@@ -52,6 +52,7 @@ type (
 		Broadcaster Broadcaster `json:"broadcaster"`
 		Subscriber  Broadcaster `json:"subscriber"`
 		Duration    int         `json:"duration"`
+		ExpiresAt   time.Time   `json:"expires_at"`
 		CreatedAt   time.Time   `json:"created_at"`
 	}
 
@@ -59,6 +60,7 @@ type (
 		Broadcaster Broadcaster   `json:"broadcaster"`
 		Gifter      Broadcaster   `json:"gifter"`
 		Giftees     []Broadcaster `json:"giftees"`
+		ExpiresAt   time.Time     `json:"expires_at"`
 		CreatedAt   time.Time     `json:"created_at"`
 	}
 
@@ -66,6 +68,7 @@ type (
 		Broadcaster Broadcaster `json:"broadcaster"`
 		Subscriber  Broadcaster `json:"subscriber"`
 		Duration    int         `json:"duration"`
+		ExpiresAt   time.Time   `json:"expires_at"`
 		CreatedAt   time.Time   `json:"created_at"`
 	}
 
