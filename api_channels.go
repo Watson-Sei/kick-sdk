@@ -26,6 +26,7 @@ type (
 		Key         string `json:"key,omitempty"`
 		Language    string `json:"language,omitempty"`
 		StartTime   string `json:"start_time,omitempty"`
+		Thumbnail   string `json:"thumbnail,omitempty"`
 		URL         string `json:"url,omitempty"`
 		ViewerCount int    `json:"viewer_count,omitempty"`
 	}

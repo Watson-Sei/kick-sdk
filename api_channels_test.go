@@ -24,6 +24,7 @@ func TestChannelsResource_GetByBroadcasterIDs(t *testing.T) {
 						IsLive:      true,
 						Key:         "key",
 						ViewerCount: 1337,
+						Thumbnail:   "thumbnail",
 					},
 					StreamTitle: "title",
 				},

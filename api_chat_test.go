@@ -46,6 +46,47 @@ func TestChatResource_PostMessage(t *testing.T) {
 		assert.Equal(t, expectedResponse.Message, response.ResponseMetadata.KickMessage)
 	})
 
+	t.Run("Request with reply_to_message_id", func(t *testing.T) {
+		var (
+			expectedData = PostChatMessageOutput{
+				MessageID: "message-id",
+				IsSent:    true,
+			}
+			expectedResponse = apiResponse[PostChatMessageOutput]{
+				Payload: expectedData,
+				Message: "OK",
+			}
+		)
+
+		expectedResponseBytes, err := json.Marshal(expectedResponse)
+		assert.NoError(t, err)
+
+		client := newMockClient(t, func(w http.ResponseWriter, r *http.Request) {
+			var input PostChatMessageInput
+			err := json.NewDecoder(r.Body).Decode(&input)
+			assert.NoError(t, err)
+
+			assert.Equal(t, "reply-message-id", input.ReplyToMessageID)
+
+			w.WriteHeader(http.StatusOK)
+			_, _ = w.Write(expectedResponseBytes)
+		})
+
+		response, err := client.Chat().PostMessage(
+			context.Background(),
+			PostChatMessageInput{
+				BroadcasterUserID: 42,
+				Content:           "reply test",
+				PosterType:        MessagePosterUser,
+				ReplyToMessageID:  "reply-message-id",
+			},
+		)
+		assert.NoError(t, err)
+
+		assert.Equal(t, expectedData, response.Payload)
+		assert.Equal(t, expectedResponse.Message, response.ResponseMetadata.KickMessage)
+	})
+
 	t.Run("Request with invalid input", func(t *testing.T) {
 		client := NewClient()
 
